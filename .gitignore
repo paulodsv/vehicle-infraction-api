@@ -1,0 +1,79 @@
+# 🔹 Byte-compiled / cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# 🔹 Virtual environment
+venv/
+.env/
+.env.*
+.venv/
+
+# 🔹 Environment variables
+.env
+.env.local
+.env.development
+.env.production
+
+# 🔹 Logs
+*.log
+logs/
+
+# 🔹 Database
+*.sqlite3
+*.db
+
+# 🔹 Migrations (opcional - depende do projeto)
+# migrations/
+# alembic/versions/
+
+# 🔹 Cache / coverage
+.cache/
+.pytest_cache/
+coverage/
+htmlcov/
+.coverage
+.coverage.*
+
+# 🔹 Build / dist
+build/
+dist/
+*.egg-info/
+
+# 🔹 IDEs / Editors
+.vscode/
+.idea/
+
+# 🔹 OS files
+.DS_Store
+Thumbs.db
+
+# 🔹 Jupyter Notebook
+.ipynb_checkpoints/
+
+# 🔹 Static / media (caso tenha upload)
+media/
+staticfiles/
+
+# 🔹 Docker
+*.pid
+*.sock
+
+# 🔹 MyPy / linters
+.mypy_cache/
+.ruff_cache/
+.pyre/
+
+# 🔹 PyInstaller
+*.spec
+
+# 🔹 Secrets
+secrets.json
+config/secrets.yaml
+
+# 🔹 Test artifacts
+test-results/
+
+# 🔹 Temporary files
+*.tmp
+*.swp
