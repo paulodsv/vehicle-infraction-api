@@ -2,7 +2,7 @@ from sqlalchemy import Column, Integer, String, Boolean, Float, ForeignKey
 from app.core.database import Base
 
 class Infraction(Base):
-    __tablename__ = "infraction"
+    __tablename__ = "infractions"
     id = Column(Integer, primary_key=True, index=True)
     query_id = Column(Integer, ForeignKey("infraction_query.id"), nullable=False)
     details_fetched = Column(Boolean, default=False)
@@ -29,5 +29,3 @@ class Infraction(Base):
     hora_infracao = Column(String, nullable=True)
     municipio = Column(String, nullable=True)
     uf = Column(String, nullable=True)
-
-
