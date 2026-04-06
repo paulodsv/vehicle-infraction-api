@@ -1,7 +1,7 @@
 from sqlalchemy import Column, Integer, String, Boolean, Float, ForeignKey
 from app.core.database import Base
 
-class Infraction(Base):
+class Infractions(Base):
     __tablename__ = "infractions"
     id = Column(Integer, primary_key=True, index=True)
     query_id = Column(Integer, ForeignKey("infraction_query.id"), nullable=False)

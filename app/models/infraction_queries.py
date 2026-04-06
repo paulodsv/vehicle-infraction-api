@@ -2,7 +2,7 @@ from sqlalchemy import Column, Integer, String, DateTime, ForeignKey
 from datetime import datetime
 from app.core.database import Base
 
-class InfractionQuery(Base):
+class InfractionQueries(Base):
     __tablename__ = "infraction_queries"
     id = Column(Integer, primary_key=True, index=True)
     plate = Column(String, nullable=False)
