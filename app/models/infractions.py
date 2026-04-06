@@ -4,7 +4,7 @@ from app.core.database import Base
 class Infractions(Base):
     __tablename__ = "infractions"
     id = Column(Integer, primary_key=True, index=True)
-    query_id = Column(Integer, ForeignKey("infraction_query.id"), nullable=False)
+    query_id = Column(Integer, ForeignKey("infraction_queries.id"), nullable=False)
     details_fetched = Column(Boolean, default=False)
     plate = Column(String, nullable=False)
     auto_infracao = Column(String, nullable=False)
