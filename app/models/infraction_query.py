@@ -1,0 +1,11 @@
+from sqlalchemy import Column, Integer, String, DateTime, ForeignKey
+from datetime import datetime
+from app.core.database import Base
+
+class InfractionQuery(Base):
+    __tablename__ = "infraction_query"
+    id = Column(Integer, primary_key=True, index=True)
+    plate = Column(String, nullable=False)
+    queried_at = Column(DateTime, default=datetime.utcnow)
+    total_infractions = Column(Integer, nullable=True)
+    user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
