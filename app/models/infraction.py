@@ -1,0 +1,33 @@
+from sqlalchemy import Column, Integer, String, Boolean, Float, ForeignKey
+from app.core.database import Base
+
+class Infraction(Base):
+    __tablename__ = "infraction"
+    id = Column(Integer, primary_key=True, index=True)
+    query_id = Column(Integer, ForeignKey("infraction_query.id"), nullable=False)
+    details_fetched = Column(Boolean, default=False)
+    plate = Column(String, nullable=False)
+    auto_infracao = Column(String, nullable=False)
+    codigo_infracao = Column(String, nullable=False)
+    descricao = Column(String, nullable=False)
+    chave_infracao = Column(String, nullable=False)
+    situacao = Column(String, nullable=False)
+    valor_total = Column(Float, nullable=False)
+    data_vencimento = Column(String, nullable=True)
+    orgao_autuador = Column(String, nullable=True)
+    orgao_competente = Column(String, nullable=True)
+    numero_ait = Column(String, nullable=True)
+    data_notificacao = Column(String, nullable=True)
+    data_limite_defesa = Column(String, nullable=True)
+    data_limite_indicacao_infrator = Column(String, nullable=True)
+    valor_multa = Column(String, nullable=True)
+    medicao_realizada = Column(String, nullable=True)
+    valor_considerado = Column(String, nullable=True)
+    limite_regulamentado = Column(String, nullable=True)
+    local_infracao = Column(String, nullable=True)
+    data_infracao = Column(String, nullable=True)
+    hora_infracao = Column(String, nullable=True)
+    municipio = Column(String, nullable=True)
+    uf = Column(String, nullable=True)
+
+
