@@ -1,6 +1,7 @@
-from app.core.security import hash_password
-from app.schemas.user import UserCreate
+from app.core.security import hash_password, verify_password, create_access_token
+from app.schemas.user import UserCreate, UserLogin
 from app.repositories.user_repository import UserRepository
+from app.domain.exceptions import AlreadyRegisteredUser, InvalidUserEmail, InvalidUserPassword
 
 class UserService():
     def __init__(self, user_repo: UserRepository):
@@ -8,5 +9,24 @@ class UserService():
 
     def register_user_service(self, user_data: UserCreate):
         verify_user_existence_by_email = self.user_repo.get_user_by_email(user_data.email)
+
         if verify_user_existence_by_email:
-            raise
+            raise AlreadyRegisteredUser("Já existe um usuário cadastrado com o email informado")
+        
+        user_hash_pass = hash_password(user_data.password)
+        user_data.password = user_hash_pass
+        return self.user_repo.save_user(user_data)
+    
+    def login_service(self, user_data: UserLogin):
+        searched_user = self.user_repo.get_user_by_email(user_data.email)
+
+        if not searched_user:
+            raise InvalidUserEmail("Email não cadastrado")
+        
+        is_pass_valid = verify_password(user_data.password, searched_user.hashed_password)
+
+        if not is_pass_valid:
+            raise InvalidUserPassword("Senha incorreta")
+        
+        access_token = create_access_token({"email": searched_user.email})
+        return access_token
