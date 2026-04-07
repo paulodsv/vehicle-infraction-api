@@ -6,4 +6,14 @@ class Settings(BaseSettings):
     ALGORITHM: str
     ACCESS_TOKEN_EXPIRE_MINUTES: int
 
+    INFOSIMPLES_TOKEN: str
+    INFOSIMPLES_CRYPTO_KEY: str
+
+    GOV_CPF: str
+    GOV_SENHA: str
+    MANDACARI_CNPJ: str
+    MAVI_CNPJ: str
+    TRANSP_MANDACARI_CNPJ: str
+    RELOG_CNPJ: str
+
 settings = Settings()
