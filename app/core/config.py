@@ -16,4 +16,6 @@ class Settings(BaseSettings):
     TRANSP_MANDACARI_CNPJ: str
     RELOG_CNPJ: str
 
+    model_config = {"env_file": ".env"}
+
 settings = Settings()
