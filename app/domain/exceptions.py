@@ -6,3 +6,9 @@ class InvalidUserEmail(Exception):
 
 class InvalidUserPassword(Exception):
     pass
+
+class AlreadyRegisteredVehicle(Exception):
+    pass
+
+class NotRegisteredVehicle(Exception):
+    pass
