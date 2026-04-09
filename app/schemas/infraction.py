@@ -19,6 +19,9 @@ class InfractionResponse(BaseModel):
     notification_date: Optional[str] = None
     defense_deadline: Optional[str] = None
     offender_indication_deadline: Optional[str] = None
+    driver_name: Optional[str] = None
+    driver_cnh: Optional[str] = None
+    driver_document: Optional[str] = None
     fine_amount: Optional[str] = None
     measurement_taken: Optional[str] = None
     considered_value: Optional[str] = None
@@ -63,6 +66,9 @@ class InfractionDetailedCreate(BaseModel):
     notification_date: str
     defense_deadline: Optional[str] = None
     offender_indication_deadline: Optional[str] = None
+    driver_name: Optional[str] = None
+    driver_cnh: Optional[str] = None
+    driver_document: Optional[str] = None
     fine_amount: str
     measurement_taken: Optional[str] = None
     considered_value: Optional[str] = None
@@ -74,11 +80,3 @@ class InfractionDetailedCreate(BaseModel):
     state: str
 
 
-class SenatranInfractionQuery(BaseModel):
-    plate: str
-    cnpj: str
-
-class SenatranInfractionDetailsQuery(BaseModel):
-    plate: str
-    cnpj: str
-    infraction_key: str
