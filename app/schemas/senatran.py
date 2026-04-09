@@ -1,3 +1,5 @@
+from pydantic import BaseModel
+
 class SenatranInfractionQuery(BaseModel):
     plate: str
     cnpj: str
