@@ -7,8 +7,8 @@ class SenatranGateway():
         self.token = settings.INFOSIMPLES_TOKEN
         self.gov_cpf = settings.GOV_CPF
         self.gov_senha = settings.GOV_SENHA
-        self.base_infractions_url = "https://api.infosimples.com/api/v2/consultas/senatran/infracoes"
-        self.base_infractions_details_url = "https://api.infosimples.com/api/v2/consultas/senatran/download-infracao"
+        self.base_infractions_url = settings.INFOSIMPLES_INFRACTIONS_URL
+        self.base_infractions_details_url = settings.INFOSIMPLES_DETAILS_URL
 
     def get_infraction_by_plate(self, query: SenatranInfractionQuery):
         infractions = httpx.post(self.base_infractions_url, data={"token": self.token, 
