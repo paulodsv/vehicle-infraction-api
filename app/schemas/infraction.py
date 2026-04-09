@@ -72,3 +72,13 @@ class InfractionDetailedCreate(BaseModel):
     infraction_time: str
     city: str
     state: str
+
+
+class SenatranInfractionQuery(BaseModel):
+    plate: str
+    cnpj: str
+
+class SenatranInfractionDetailsQuery(BaseModel):
+    plate: str
+    cnpj: str
+    infraction_key: str
