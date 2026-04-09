@@ -43,3 +43,9 @@ class VehicleRepository():
     
     def get_all_vehicles(self):
         return self.db.query(Vehicle).all()
+    
+    def get_cnpj_by_plate(self, plate: str) -> str | None:
+        vehicle = self.db.query(Vehicle).filter(Vehicle.plate == plate).first()
+        if vehicle:
+            return vehicle.company_cnpj
+        return None
