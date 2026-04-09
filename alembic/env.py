@@ -9,6 +9,7 @@ from app.core.database import Base
 from app.models.user import User
 from app.models.infraction_queries import InfractionQueries
 from app.models.infractions import Infractions
+from app.models.vehicle import Vehicle
 
 from app.core.config import settings
 
