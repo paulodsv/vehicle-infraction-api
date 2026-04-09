@@ -1,6 +1,6 @@
 from app.gateways.senatran_gateway import SenatranGateway
-from app.schemas.infraction import InfractionQueryCreate, InfractionCreate
-from app.schemas.senatran import SenatranInfractionQuery
+from app.schemas.infraction import InfractionQueryCreate, InfractionCreate, InfractionDetailedCreate
+from app.schemas.senatran import SenatranInfractionQuery, SenatranInfractionDetailsQuery
 from app.repositories.infraction_repository import InfractionRepository
 from app.repositories.vehicle_repository import VehicleRepository
 
@@ -42,3 +42,32 @@ class SenatranService():
             infractions = self.consult_infractions_service(query, current_user_id)
             results.extend(infractions)
         return results
+    
+    def fetch_infraction_details(self):
+        infractions_with_no_details = self.infraction_repo.get_infractions_with_no_details()
+
+        for infraction in infractions_with_no_details:
+            cnpj_infraction = self.vehicles_repo.get_cnpj_by_plate(infraction.plate)
+            query_details = SenatranInfractionDetailsQuery(plate=infraction.plate, cnpj=cnpj_infraction, infraction_key=infraction.infraction_key)
+            details = self.senatran_gateway.get_infraction_details(query_details)
+            infraction_detailed = InfractionDetailedCreate(issuing_authority=details["data"][0]["autuacao"]["orgao_autuador"],
+                                                           competent_authority=details["data"][0]["autuacao"]["orgao_competente"],
+                                                           notification_date=details["data"][0]["autuacao"]["data_notificacao"],
+                                                           defense_deadline=details["data"][0]["autuacao"]["data_limite_defesa"],
+                                                           offender_indication_deadline=details["data"][0]["autuacao"]["data_limite_indicacao_infrator"],
+                                                           driver_name=details["data"][0]["condutor"]["nome"],
+                                                           driver_cnh=details["data"][0]["condutor"]["cnh"],
+                                                           driver_document=details["data"][0]["condutor"]["documento"],
+                                                           fine_amount=details["data"][0]["infracao"]["valor_multa"],
+                                                           measurement_taken=details["data"][0]["infracao"]["medicao_realizada"],
+                                                           considered_value=details["data"][0]["infracao"]["valor_considerado"],
+                                                           regulated_limit=details["data"][0]["infracao"]["limite_regulamentado"],
+                                                           infraction_location=details["data"][0]["local_data_hora"]["local_infracao"],
+                                                           infraction_date=details["data"][0]["local_data_hora"]["data_infracao"],
+                                                           infraction_time=details["data"][0]["local_data_hora"]["hora_infracao"],
+                                                           city=details["data"][0]["local_data_hora"]["municipio"],
+                                                           state=details["data"][0]["local_data_hora"]["uf"])
+            self.infraction_repo.update_infraction_details(infraction_detailed, infraction.infraction_notice_number)
+        return len(infractions_with_no_details)
+
+        
