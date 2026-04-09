@@ -51,6 +51,9 @@ class InfractionRepository():
         infraction.notification_date = detailed_infraction.notification_date
         infraction.defense_deadline = detailed_infraction.defense_deadline
         infraction.offender_indication_deadline = detailed_infraction.offender_indication_deadline
+        infraction.driver_name = detailed_infraction.driver_name
+        infraction.driver_cnh = detailed_infraction.driver_cnh
+        infraction.driver_document = detailed_infraction.driver_document
         infraction.fine_amount = detailed_infraction.fine_amount
         infraction.measurement_taken = detailed_infraction.measurement_taken
         infraction.considered_value = detailed_infraction.considered_value
@@ -64,3 +67,7 @@ class InfractionRepository():
         self.db.commit()
         self.db.refresh(infraction)
         return infraction
+    
+    def get_infractions_with_no_details(self):
+        infractions = self.db.query(Infractions).filter(Infractions.details_fetched == False).all()
+        return infractions
