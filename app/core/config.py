@@ -16,6 +16,9 @@ class Settings(BaseSettings):
     TRANSP_MANDACARI_CNPJ: str
     RELOG_CNPJ: str
 
+    INFOSIMPLES_INFRACTIONS_URL: str
+    INFOSIMPLES_DETAILS_URL : str
+
     model_config = {"env_file": ".env"}
 
 settings = Settings()
