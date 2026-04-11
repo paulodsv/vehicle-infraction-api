@@ -13,5 +13,5 @@ def register_exception_handlers(app):
         return JSONResponse(status_code=400, content={"detail": str(exc)})
     
     @app.exception_handler(InvalidUserEmail)
-    async def handler_invalid_user_password(request: Request, exc: InvalidUserEmail):
+    async def handler_invalid_user_email(request: Request, exc: InvalidUserEmail):
         return JSONResponse(status_code=404, content={"detail": str(exc)})
