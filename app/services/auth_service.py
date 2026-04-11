@@ -2,6 +2,7 @@ from app.core.security import hash_password, verify_password, create_access_toke
 from app.schemas.user import UserCreate, UserLogin
 from app.repositories.user_repository import UserRepository
 from app.domain.exceptions import AlreadyRegisteredUser, InvalidUserEmail, InvalidUserPassword
+from app.schemas.token import TokenResponse
 
 class UserService():
     def __init__(self, user_repo: UserRepository):
@@ -29,4 +30,4 @@ class UserService():
             raise InvalidUserPassword("Senha incorreta")
         
         access_token = create_access_token({"email": searched_user.email})
-        return access_token
+        return TokenResponse(access_token=access_token, token_type="bearer")
