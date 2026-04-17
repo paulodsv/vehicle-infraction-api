@@ -41,7 +41,7 @@ class SenatranService():
     
 
     def consult_fleet_service(self, current_user_id: int):
-        all_active_vehicles = self.vehicles_repo.get_all_active_vehicles()
+        all_active_vehicles = self.vehicles_repo.get_all_vehicles(is_active=True)
 
         results = []
         for vehicle in all_active_vehicles:
