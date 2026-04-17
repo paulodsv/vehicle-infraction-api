@@ -19,11 +19,7 @@ class VehicleService():
         if not vehicle:
             raise NotRegisteredVehicle("Veículo com a placa informada não cadastrado no sistema")
         
-        return vehicle
-            
-    def get_vehicles_by_type_service(self, type: TipoVeiculo) -> list[Vehicle]:
-        vehicle = self.vehicle_repo.get_vehicles_by_type(type)
-        return vehicle
+        return vehicle           
     
     def get_vehicle_by_id_service(self, id: int) -> Vehicle:
         vehicle = self.vehicle_repo.get_vehicle_by_id(id)
@@ -39,8 +35,6 @@ class VehicleService():
         
         return self.vehicle_repo.update_vehicle(id, vehicle_data)
     
-    def get_all_vehicles_service(self) -> list[Vehicle]:
-        return self.vehicle_repo.get_all_vehicles()
+    def get_all_vehicles_service(self, type: TipoVeiculo | None = None, is_active: bool | None = None) -> list[Vehicle]:
+        return self.vehicle_repo.get_all_vehicles(type, is_active)
     
-    def get_all_active_vehicles_service(self) -> list[Vehicle]:
-        return self.vehicle_repo.get_all_active_vehicles()
