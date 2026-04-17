@@ -41,8 +41,13 @@ class VehicleRepository():
     def get_all_active_vehicles(self):
         return self.db.query(Vehicle).filter(Vehicle.is_active == True).all()
     
-    def get_all_vehicles(self):
-        return self.db.query(Vehicle).all()
+    def get_all_vehicles(self, type: str | None = None, is_active: bool | None = None):
+        query = self.db.query(Vehicle)
+        if type:
+            query = query.filter(Vehicle.type == type)
+        if is_active:
+            query = query.filter(Vehicle.is_active == is_active)
+        return query.all()
     
     def get_cnpj_by_plate(self, plate: str) -> str | None:
         vehicle = self.db.query(Vehicle).filter(Vehicle.plate == plate).first()
