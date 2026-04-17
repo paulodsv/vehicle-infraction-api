@@ -42,3 +42,4 @@ def get_user_service(db: Session = Depends(get_db)):
 def get_vehicle_service(db: Session = Depends(get_db)):
     vehicle_repo = VehicleRepository(db)
     service = VehicleService(vehicle_repo)
+    return service
