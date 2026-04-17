@@ -27,5 +27,5 @@ def register(user_data: UserCreate, service: UserService = Depends(get_user_serv
                       200: {"description": "Login realizado com sucesso"},
                       404: {"description": "Email ou senha inválidos"}
                   })
-def login(user_data: UserLogin, service: UserService = Depends(get_user_service)):
+def login(user_data: UserLogin, service: UserService = Depends(get_user_service)) -> TokenResponse:
     return service.login_service(user_data)
