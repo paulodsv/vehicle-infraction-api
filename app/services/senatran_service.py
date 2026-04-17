@@ -5,6 +5,7 @@ from app.repositories.infraction_repository import InfractionRepository
 from app.repositories.vehicle_repository import VehicleRepository
 from app.dtos.senatran.infraction_dto import SenatranInfractionDTO, SenatranInfractionQueryDTO
 from app.dtos.senatran.details_dto import SenatranDetailsDTO
+from app.models.infractions import Infractions
 
 class SenatranService():
     def __init__(self, senatran_gateway: SenatranGateway, infraction_repo: InfractionRepository, vehicles_repo: VehicleRepository):
@@ -12,7 +13,7 @@ class SenatranService():
         self.infraction_repo = infraction_repo
         self.vehicles_repo = vehicles_repo
 
-    def consult_infractions_service(self, query: SenatranInfractionQuery, current_user_id: int):
+    def consult_infractions_service(self, query: SenatranInfractionQuery, current_user_id: int) -> Infractions:
 
         # ------------------------- QUERY CREATE -----------------------------
         infractions = self.senatran_gateway.get_infraction_by_plate(query)
@@ -40,7 +41,7 @@ class SenatranService():
         return self.infraction_repo.get_infractions_by_query(saved_query.id)
     
 
-    def consult_fleet_service(self, current_user_id: int):
+    def consult_fleet_service(self, current_user_id: int) -> list[Infractions]:
         all_active_vehicles = self.vehicles_repo.get_all_vehicles(is_active=True)
 
         results = []
@@ -51,7 +52,7 @@ class SenatranService():
         return results
     
     
-    def fetch_infraction_details(self):
+    def fetch_infraction_details(self) -> int | None:
         infractions_with_no_details = self.infraction_repo.get_infractions_with_no_details()
 
         for infraction in infractions_with_no_details:

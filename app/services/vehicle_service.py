@@ -21,13 +21,6 @@ class VehicleService():
         
         return vehicle           
     
-    def get_vehicle_by_id_service(self, id: int) -> Vehicle:
-        vehicle = self.vehicle_repo.get_vehicle_by_id(id)
-        if not vehicle:
-            raise NotRegisteredVehicle("Veículo com o id informado não cadastrado no sistema")
-        
-        return vehicle
-    
     def update_vehicle_service(self, id: int, vehicle_data: VehicleUpdate) -> Vehicle:
         vehicle = self.vehicle_repo.get_vehicle_by_id(id)
         if not vehicle:
