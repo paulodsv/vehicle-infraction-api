@@ -7,6 +7,8 @@ from app.models.user import User
 from app.core.config import settings
 from app.repositories.user_repository import UserRepository
 from app.services.auth_service import UserService
+from app.repositories.vehicle_repository import VehicleRepository
+from app.services.vehicle_service import VehicleService
 
 def get_db():
     db = SessionLocal()
@@ -36,3 +38,7 @@ def get_user_service(db: Session = Depends(get_db)):
     user_repo = UserRepository(db)
     service = UserService(user_repo)
     return service
+
+def get_vehicle_service(db: Session = Depends(get_db)):
+    vehicle_repo = VehicleRepository(db)
+    service = VehicleService(vehicle_repo)
