@@ -4,7 +4,7 @@ from app.schemas.user import UserCreate, UserResponse, UserLogin
 from app.schemas.token import TokenResponse
 from app.core.dependencies import get_user_service
 
-auth_router = APIRouter(prefix="/auth", tags=["Autenticação"])
+auth_router = APIRouter(prefix="/auth", tags=["Auth"])
 
 @auth_router.post("/register", status_code=201, 
                   response_model=UserResponse, 
@@ -15,7 +15,7 @@ auth_router = APIRouter(prefix="/auth", tags=["Autenticação"])
                       201: {"description": "Usuário cadastrado com sucesso"},
                       409: {"description": "Email já registrado no sistema"}
                   })
-async def register(user_data: UserCreate, service: UserService = Depends(get_user_service)) -> UserResponse:
+def register(user_data: UserCreate, service: UserService = Depends(get_user_service)) -> UserResponse:
     return service.register_user_service(user_data)
 
 @auth_router.post("/login", status_code=200, 
@@ -27,5 +27,5 @@ async def register(user_data: UserCreate, service: UserService = Depends(get_use
                       200: {"description": "Login realizado com sucesso"},
                       404: {"description": "Email ou senha inválidos"}
                   })
-async def login(user_data: UserLogin, service: UserService = Depends(get_user_service)):
+def login(user_data: UserLogin, service: UserService = Depends(get_user_service)):
     return service.login_service(user_data)
