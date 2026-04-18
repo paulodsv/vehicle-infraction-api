@@ -7,7 +7,8 @@ from app.models.user import User
 
 vehicle_router = APIRouter(prefix="/vehicles", tags=["Vehicles"])
 
-@vehicle_router.post("/", response_model=VehicleResponse,
+@vehicle_router.post("/", status_code=201, 
+                     response_model=VehicleResponse,
                      summary="Cadastra um veículo",
                      description="Registra um novo veículo no sistema",
                      operation_id="saveVehicle",
@@ -20,7 +21,8 @@ def save_vehicle(vehicle_data: VehicleCreate,
                  current_user: User = Depends(get_current_user)):
     return service.save_vehicle_service(vehicle_data)
 
-@vehicle_router.get("/{plate}", response_model=VehicleResponse,
+@vehicle_router.get("/{plate}", status_code=200, 
+                    response_model=VehicleResponse,
                     summary="Busca um veículo por placa",
                     description="Retorna um veículo cadastrado no sistema pela sua placa",
                     operation_id="getVehicleByPlate",
@@ -33,7 +35,8 @@ def get_vehicle_by_plate(plate: str,
                          current_user: User = Depends(get_current_user)):
     return service.get_vehicle_by_plate_service(plate)
 
-@vehicle_router.patch("/", response_model=VehicleResponse,
+@vehicle_router.patch("/", status_code=200, 
+                     response_model=VehicleResponse,
                      summary="Atualiza um veículo",
                      description="Atualiza informações de um veículo já cadastrado no sistema",
                      operation_id="updateVehicle",
@@ -46,7 +49,8 @@ def update_vehicle(id: int, updated_vehicle_data: VehicleUpdate,
                    current_user: User = Depends(get_current_user)):
     return service.update_vehicle_service(id, updated_vehicle_data)
 
-@vehicle_router.get("/", response_model=List[VehicleResponse],
+@vehicle_router.get("/", status_code=200, 
+                    response_model=List[VehicleResponse],
                     summary="Lista todos os veículos com filtros opcionais",
                     description="Retorna uma lista de todos os veículos já registrados no sistema, com opção de filtros pra veículos ativos e tipo",
                     operation_id="getAllVehicles",
