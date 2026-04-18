@@ -9,6 +9,8 @@ from app.repositories.user_repository import UserRepository
 from app.services.auth_service import UserService
 from app.repositories.vehicle_repository import VehicleRepository
 from app.services.vehicle_service import VehicleService
+from app.repositories.infraction_repository import InfractionRepository
+from app.services.infraction_service import InfractionService
 
 def get_db():
     db = SessionLocal()
@@ -43,4 +45,9 @@ def get_user_service(db: Session = Depends(get_db)):
 def get_vehicle_service(db: Session = Depends(get_db)):
     vehicle_repo = VehicleRepository(db)
     service = VehicleService(vehicle_repo)
+    return service
+
+def get_infractions_service(db: Session = Depends(get_db)):
+    infraction_repo = InfractionRepository(db)
+    service = InfractionService(infraction_repo)
     return service
