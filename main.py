@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from app.routers.auth import auth_router
 from app.routers.vehicle import vehicle_router
 from app.routers.infraction import infractions_router
+from app.routers.senatran import senatran_router
 from app.api.exception_handlers import register_exception_handlers
 
 
@@ -28,5 +29,6 @@ register_exception_handlers(app)
 app.include_router(auth_router)
 app.include_router(vehicle_router)
 app.include_router(infractions_router)
+app.include_router(senatran_router)
 
 
