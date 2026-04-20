@@ -2,14 +2,16 @@ from fastapi import APIRouter, Depends
 from app.models.user import User
 from app.core.dependencies import get_current_user
 from app.schemas.infraction import InfractionResponse, InfractionQueryResponse
-from app.core.dependencies import get_infractions_service
+from app.core.dependencies import get_infractions_service, get_vehicle_service
 from app.services.infraction_service import InfractionService
 from app.models.user import User
+from app.services.vehicle_service import VehicleService
+
 
 infractions_router = APIRouter(prefix="/infractions", tags=["Infractions"])
 
 @infractions_router.get("/{plate}", status_code=200,
-                        response_model=InfractionResponse,
+                        response_model=list[InfractionResponse],
                         summary="Retorna infrações por placa",
                         description="Consulta e retorna infrações já registradas no sistema, baseado na placa do veículo",
                         operation_id="getInfractions",
@@ -18,12 +20,14 @@ infractions_router = APIRouter(prefix="/infractions", tags=["Infractions"])
                             404: {"description": "Placa informada não registrada no sistema"}
                         })
 def get_infractions_by_plate(plate: str, 
-                                   service: InfractionService = Depends(get_infractions_service), 
+                                   service: InfractionService = Depends(get_infractions_service),
+                                   vehicle_service: VehicleService = Depends(get_vehicle_service), 
                                    get_current_user: User = Depends(get_current_user)) -> list[InfractionResponse]:
+    vehicle_service.get_vehicle_by_plate_service(plate)
     return service.get_infractions_by_plate_service(plate)
 
 @infractions_router.get("/queries/{user_id}", status_code=200,
-                        response_model=InfractionQueryResponse,
+                        response_model=list[InfractionQueryResponse],
                         summary="Retorna queries pelo user_id",
                         description="Retorna uma query realizada por um usuário que consultou infrações",
                         operation_id="getQueryByUserId",
@@ -43,7 +47,7 @@ def get_queries_by_user_id(user_id: int,
                         operation_id="getInfractionsByQueryId",
                         responses={
                             200: {"description": "Infrações retornadas com sucesso"},
-                            404: {"O ID da query informado não existe"}
+                            404: {"description": "O ID da query informado não existe"}
                         })
 def get_infractions_by_query_id(query_id: int,
                                 service: InfractionService = Depends(get_infractions_service),
