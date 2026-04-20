@@ -11,6 +11,8 @@ from app.repositories.vehicle_repository import VehicleRepository
 from app.services.vehicle_service import VehicleService
 from app.repositories.infraction_repository import InfractionRepository
 from app.services.infraction_service import InfractionService
+from app.services.senatran_service import SenatranService
+from app.gateways.senatran_gateway import SenatranGateway
 
 def get_db():
     db = SessionLocal()
@@ -50,4 +52,11 @@ def get_vehicle_service(db: Session = Depends(get_db)):
 def get_infractions_service(db: Session = Depends(get_db)):
     infraction_repo = InfractionRepository(db)
     service = InfractionService(infraction_repo)
+    return service
+
+def get_senatran_service(db: Session = Depends(get_db)):
+    senatran_gateway = SenatranGateway()
+    infraction_repo = InfractionRepository(db)
+    vehicle_repo = VehicleRepository(db)
+    service = SenatranService(senatran_gateway, infraction_repo, vehicle_repo)
     return service
