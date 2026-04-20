@@ -21,6 +21,15 @@ class InfractionRepository():
         return self.db.query(InfractionQueries).filter(InfractionQueries.id == query_id).first()
     
     def save_infraction(self, infraction_data: InfractionCreate) -> Infractions:
+        #Verifica se a infração já existe no banco, se existir, atualiza os campos que possam ter mudado.
+        existing = self.db.query(Infractions).filter(Infractions.infraction_notice_number == infraction_data.infraction_notice_number).first()
+        if existing:
+            existing.status = infraction_data.status
+            existing.query_id = infraction_data.query_id
+            self.db.commit()
+            self.db.refresh(existing)
+            return existing
+        
         infraction = Infractions(
             query_id = infraction_data.query_id,
             plate = infraction_data.plate,
