@@ -6,6 +6,7 @@ from app.repositories.vehicle_repository import VehicleRepository
 from app.dtos.senatran.infraction_dto import SenatranInfractionDTO, SenatranInfractionQueryDTO
 from app.dtos.senatran.details_dto import SenatranDetailsDTO
 from app.models.infractions import Infractions
+from app.domain.exceptions import NotRegisteredVehicle
 
 class SenatranService():
     def __init__(self, senatran_gateway: SenatranGateway, infraction_repo: InfractionRepository, vehicles_repo: VehicleRepository):
@@ -16,7 +17,16 @@ class SenatranService():
     def consult_infractions_service(self, query: SenatranInfractionQuery, current_user_id: int) -> Infractions:
 
         # ------------------------- QUERY CREATE -----------------------------
+        if not query.cnpj:
+            plate_cnpj = self.vehicles_repo.get_cnpj_by_plate(query.plate)
+            if not plate_cnpj: 
+                raise NotRegisteredVehicle("Veículo não cadastrado no sistema. Favor informar o cnpj correspondente")
+            query.cnpj = plate_cnpj
+
         infractions = self.senatran_gateway.get_infraction_by_plate(query)
+        if not infractions["data"]:
+            raise Exception(infractions["errors"][0])
+        
         query_dto = SenatranInfractionQueryDTO(infractions)
         infraction_query = InfractionQueryCreate(total_infractions = query_dto.total_infractions, 
                                                  plate=query.plate, 
