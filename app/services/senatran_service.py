@@ -62,9 +62,11 @@ class SenatranService():
         return results
     
     
-    def fetch_infraction_details(self) -> int | None:
+    def fetch_infraction_details_service(self) -> int:
         infractions_with_no_details = self.infraction_repo.get_infractions_with_no_details()
-
+        if not infractions_with_no_details:
+            return 0
+        
         for infraction in infractions_with_no_details:
             cnpj_infraction = self.vehicles_repo.get_cnpj_by_plate(infraction.plate)
             query_details = SenatranInfractionDetailsQuery(plate=infraction.plate, cnpj=cnpj_infraction, infraction_key=infraction.infraction_key)
