@@ -6,7 +6,7 @@ from sqlalchemy.orm import Session
 from app.models.user import User
 from app.core.config import settings
 from app.repositories.user_repository import UserRepository
-from app.services.auth_service import UserService
+from app.services.user_service import UserService
 from app.repositories.vehicle_repository import VehicleRepository
 from app.services.vehicle_service import VehicleService
 from app.repositories.infraction_repository import InfractionRepository
