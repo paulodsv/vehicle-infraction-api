@@ -18,3 +18,6 @@ class UserRepository():
 
     def get_user_by_id(self, id: int) -> User:
         return self.db.query(User).filter(User.id == id).first()
+    
+    def get_all_users(self) -> list[User]:
+        return self.db.query(User).all()
