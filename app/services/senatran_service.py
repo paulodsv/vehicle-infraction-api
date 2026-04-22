@@ -16,7 +16,6 @@ class SenatranService():
 
     def consult_infractions_service(self, query: SenatranInfractionQuery, current_user_id: int) -> Infractions:
 
-        # ------------------------- QUERY CREATE -----------------------------
         if not query.cnpj:
             plate_cnpj = self.vehicles_repo.get_cnpj_by_plate(query.plate)
             if not plate_cnpj: 
@@ -27,13 +26,14 @@ class SenatranService():
         if not infractions["data"]:
             raise Exception(infractions["errors"][0])
         
+        #Save da query do respectivo usuário
         query_dto = SenatranInfractionQueryDTO(infractions)
         infraction_query = InfractionQueryCreate(total_infractions = query_dto.total_infractions, 
                                                  plate=query.plate, 
                                                  user_id=current_user_id)
         saved_query = self.infraction_repo.save_query(infraction_query)
 
-        # ------------------------ SAVE INFRACTION ---------------------------
+        #Save das infrações
         for infraction in infractions["data"][0]["infracoes"]:
             dto = SenatranInfractionDTO(infraction)
 
@@ -73,6 +73,7 @@ class SenatranService():
 
             infraction_detailed = InfractionDetailedCreate(issuing_authority=dto.issuing_authority,
                                                            competent_authority=dto.competent_authority,
+                                                           ait_number=dto.ait_number,
                                                            notification_date=dto.notification_date,
                                                            defense_deadline=dto.defense_deadline,
                                                            offender_indication_deadline=dto.offender_indication_deadline,
