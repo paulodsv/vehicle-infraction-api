@@ -13,7 +13,7 @@ senatran_router = APIRouter(prefix="/senatran", tags=["Senatran"])
                       description="Retorna uma lista de infrações do Senatran pela placa do veículo",
                       operation_id="getSenatranInfractions",
                       responses={
-                          201: {"description": "Infrações consultadas e gravadas no banco de dados com sucesso!"},
+                          201: {"description": "Infrações consultadas e gravadas com sucesso!"},
                           400: {"description": "Placa ou CNPJ informados incorretos"}
                       })
 def consult_infractions(data: SenatranInfractionQuery, 
