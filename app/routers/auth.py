@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Depends
-from app.services.auth_service import UserService
+from app.services.user_service import UserService
 from app.schemas.user import UserCreate, UserResponse, UserLogin
 from app.schemas.token import TokenResponse
 from app.core.dependencies import get_user_service
@@ -8,7 +8,7 @@ auth_router = APIRouter(prefix="/auth", tags=["Auth"])
 
 @auth_router.post("/register", status_code=201, 
                   response_model=UserResponse, 
-                  summary="Cadastrar novo usuário", 
+                  summary="Cadastra um novo usuário", 
                   description="Cria um novo usuário no sistema",
                   operation_id="userRegister",
                   responses={
