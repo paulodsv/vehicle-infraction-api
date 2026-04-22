@@ -11,10 +11,6 @@ class Settings(BaseSettings):
 
     GOV_CPF: str
     GOV_SENHA: str
-    MANDACARI_CNPJ: str
-    MAVI_CNPJ: str
-    TRANSP_MANDACARI_CNPJ: str
-    RELOG_CNPJ: str
 
     INFOSIMPLES_INFRACTIONS_URL: str
     INFOSIMPLES_DETAILS_URL : str
