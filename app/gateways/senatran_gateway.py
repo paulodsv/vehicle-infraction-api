@@ -24,7 +24,9 @@ class SenatranGateway():
         details = httpx.post(self.base_infractions_details_url, data={"token": self.token, 
                                                                       "chave_infracao": query.infraction_key, 
                                                                       "placa": query.plate,
-                                                                      "cnpj": query.cnpj}, 
+                                                                      "cnpj": query.cnpj, 
+                                                                      "login_cpf": self.gov_cpf,
+                                                                      "login_senha": self.gov_senha},
                                                                       timeout=45.0)
         response = details.json()
         return response
