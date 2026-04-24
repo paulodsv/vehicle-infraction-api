@@ -23,6 +23,7 @@ def get_infractions_by_plate(plate: str,
                                    service: InfractionService = Depends(get_infractions_service),
                                    vehicle_service: VehicleService = Depends(get_vehicle_service), 
                                    get_current_user: User = Depends(get_current_user)) -> list[InfractionResponse]:
+    plate = plate.upper()
     vehicle_service.get_vehicle_by_plate_service(plate)
     return service.get_infractions_by_plate_service(plate)
 
