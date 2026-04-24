@@ -1,20 +1,27 @@
 class SenatranDetailsDTO:
     def __init__(self, data: dict):
-        self.issuing_authority = data["data"][0]["autuacao"]["orgao_autuador"]
-        self.competent_authority = data["data"][0]["autuacao"]["orgao_competente"]
-        self.ait_number = data["data"][0]["autuacao"]["numero_ait"]
-        self.notification_date = data["data"][0]["autuacao"]["data_notificacao"]
-        self.defense_deadline = data["data"][0]["autuacao"]["data_limite_defesa"]
-        self.offender_indication_deadline = data["data"][0]["autuacao"]["data_limite_indicacao_infrator"]
-        self.driver_name = data["data"][0]["condutor"]["nome"]
-        self.driver_cnh = data["data"][0]["condutor"]["cnh"]
-        self.driver_document = data["data"][0]["condutor"]["documento"]
-        self.fine_amount = data["data"][0]["infracao"]["valor_multa"]
-        self.measurement_taken = data["data"][0]["infracao"]["medicao_realizada"]
-        self.considered_value = data["data"][0]["infracao"]["valor_considerado"]
-        self.regulated_limit = data["data"][0]["infracao"]["limite_regulamentado"]
-        self.infraction_location = data["data"][0]["local_data_hora"]["local_infracao"]
-        self.infraction_date = data["data"][0]["local_data_hora"]["data_infracao"]
-        self.infraction_time = data["data"][0]["local_data_hora"]["hora_infracao"]
-        self.city = data["data"][0]["local_data_hora"]["municipio"]
-        self.state = data["data"][0]["local_data_hora"]["uf"]
+        autuacao = data.get("autuacao") or {}
+        self.issuing_authority = autuacao.get("orgao_autuador")
+        self.competent_authority = autuacao.get("orgao_competente")
+        self.ait_number = autuacao.get("numero_ait")
+        self.notification_date = autuacao.get("data_notificacao")
+        self.defense_deadline = autuacao.get("data_limite_defesa")
+        self.offender_indication_deadline = autuacao.get("data_limite_indicacao_infrator")
+
+        condutor = data.get("condutor") or {}
+        self.driver_name = condutor.get("nome")
+        self.driver_cnh = condutor.get("cnh")
+        self.driver_document = condutor.get("documento")
+
+        infracao = data.get("infracao") or {}
+        self.fine_amount = infracao.get("valor_multa")
+        self.measurement_taken = infracao.get("medicao_realizada")
+        self.considered_value = infracao.get("valor_considerado")
+        self.regulated_limit = infracao.get("limite_regulamentado")
+
+        local_data_hora = data.get("local_data_hora")
+        self.infraction_location = local_data_hora.get("local_infracao")
+        self.infraction_date = local_data_hora.get("data_infracao")
+        self.infraction_time = local_data_hora.get("hora_infracao") 
+        self.city = local_data_hora.get("municipio")
+        self.state = local_data_hora.get("uf")
