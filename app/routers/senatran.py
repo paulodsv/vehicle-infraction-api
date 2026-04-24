@@ -25,7 +25,11 @@ def consult_infractions(data: SenatranInfractionQuery,
 @senatran_router.post("/fetch-details", status_code=200, 
                       summary="Busca detalhes das infrações pendentes",
                       description="Atualiza infrações do banco de dados que ainda não possuem detalhes registrados",
-                      operation_id="fetchDetails")
+                      operation_id="fetchDetails",
+                      responses={
+                          200: {"description": "x infrações atualizadas com sucesso"},
+                          500: {"description": "Erro interno ao atualizar infrações pendentes"}
+                      })
 def fetch_infraction_details(get_current_user: User = Depends(get_current_user), 
                                service: SenatranService = Depends(get_senatran_service)):
     count = service.fetch_infraction_details_service()
