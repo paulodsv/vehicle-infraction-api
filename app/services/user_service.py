@@ -20,7 +20,7 @@ class UserService():
         user_data.password = user_hash_pass
         return self.user_repo.save_user(user_data)
     
-    def login_service(self, user_data: UserLogin):
+    def login_service(self, user_data: UserLogin) -> TokenResponse:
         searched_user = self.user_repo.get_user_by_email(user_data.email)
 
         if not searched_user:
