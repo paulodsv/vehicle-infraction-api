@@ -4,10 +4,13 @@ from app.routers.vehicle import vehicle_router
 from app.routers.infraction import infractions_router
 from app.routers.senatran import senatran_router
 from app.routers.user import user_router
+from app.routers.health import health_router
 from app.api.exception_handlers import register_exception_handlers
+from app.core.logging_config import setup_logging
 from fastapi.staticfiles import StaticFiles
 from fastapi.openapi.docs import get_swagger_ui_html
 
+setup_logging()
 
 app = FastAPI(title="Vehicle Infractions Service", description="""
 API para gerenciamento e monitoramento de infrações de trânsito em frotas de transporte.
@@ -33,6 +36,7 @@ async def custom_swagger():
     )
 
 register_exception_handlers(app)
+app.include_router(health_router)
 app.include_router(auth_router)
 app.include_router(vehicle_router)
 app.include_router(infractions_router)
