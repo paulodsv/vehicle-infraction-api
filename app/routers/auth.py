@@ -21,7 +21,7 @@ def register(user_data: UserCreate, service: UserService = Depends(get_user_serv
     return success_response(user, "Usuário cadastrado com sucesso")
 
 @auth_router.post("/login", status_code=200, 
-                  response_model=APIResponse[TokenResponse],
+                  response_model=TokenResponse,
                   description="Realiza o Login de um usuário",
                   summary="Login do usuário",
                   operation_id="userLogin",
@@ -29,6 +29,5 @@ def register(user_data: UserCreate, service: UserService = Depends(get_user_serv
                       200: {"description": "Login realizado com sucesso"},
                       401: {"description": "Email ou senha inválidos"}
                   })
-def login(user_data: UserLogin, service: UserService = Depends(get_user_service)) -> APIResponse[TokenResponse]:
-    user_token = service.login_service(user_data)
-    return success_response(user_token, "Login realizado com sucesso")
+def login(user_data: UserLogin, service: UserService = Depends(get_user_service)) -> TokenResponse:
+    return service.login_service(user_data)
