@@ -51,7 +51,8 @@ def get_vehicle_service(db: Session = Depends(get_db)):
 
 def get_infractions_service(db: Session = Depends(get_db)):
     infraction_repo = InfractionRepository(db)
-    service = InfractionService(infraction_repo)
+    user_repo = UserRepository(db)
+    service = InfractionService(infraction_repo, user_repo)
     return service
 
 def get_senatran_service(db: Session = Depends(get_db)):
