@@ -15,7 +15,7 @@ infractions_router = APIRouter(prefix="/infractions", tags=["Infractions"])
                         response_model=APIResponse[list[InfractionResponse]],
                         summary="Retorna infrações por placa",
                         description="Consulta e retorna infrações já registradas no sistema, baseado na placa do veículo",
-                        operation_id="getInfractions",
+                        operation_id="getInfractionsByPlate",
                         responses={
                             200: {"description": "Infrações retornadas com sucesso"},
                             404: {"description": "Placa informada não registrada no sistema"}
