@@ -14,6 +14,8 @@ class Settings(BaseSettings):
 
     INFOSIMPLES_INFRACTIONS_URL: str
     INFOSIMPLES_DETAILS_URL : str
+    
+    log_level: str = "INFO"
 
     model_config = {"env_file": ".env"}
 
