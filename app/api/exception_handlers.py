@@ -1,6 +1,6 @@
 from fastapi import Request
 from fastapi.responses import JSONResponse
-from app.domain.exceptions import AlreadyRegisteredUser, InvalidUserEmail, InvalidUserPassword, NotRegisteredVehicle, AlreadyRegisteredVehicle, UserEmailNotFound, UserIdNotFound
+from app.domain.exceptions import AlreadyRegisteredUser, InvalidUserEmail, InvalidUserPassword, NotRegisteredVehicle, AlreadyRegisteredVehicle, UserEmailNotFound, UserIdNotFound, QueryIdNotFound
 
 def register_exception_handlers(app):
 
@@ -30,4 +30,8 @@ def register_exception_handlers(app):
     
     @app.exception_handler(UserIdNotFound)
     async def handler_user_id_not_found(request: Request, exc: UserIdNotFound):
+        return JSONResponse(status_code=404, content={"detail": str(exc)})
+    
+    @app.exception_handler(QueryIdNotFound)
+    async def handler_query_id_not_found(request: Request, exc: QueryIdNotFound):
         return JSONResponse(status_code=404, content={"detail": str(exc)})
