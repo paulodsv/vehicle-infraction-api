@@ -1,16 +1,25 @@
 from app.repositories.infraction_repository import InfractionRepository
 from app.models.infractions import Infractions
 from app.models.infraction_queries import InfractionQueries
+from app.domain.exceptions import UserIdNotFound, QueryIdNotFound
+from app.repositories.user_repository import UserRepository 
 
 class InfractionService():
-    def __init__(self, infraction_repo: InfractionRepository):
+    def __init__(self, infraction_repo: InfractionRepository, user_repo: UserRepository):
         self.infraction_repo = infraction_repo
+        self.user_repo = user_repo
 
     def get_infractions_by_plate_service(self, plate: str) -> Infractions:
         return self.infraction_repo.get_infractions_by_plate(plate)
 
     def get_queries_by_user_id_service(self, user_id: int) -> InfractionQueries:
+        user = self.user_repo.get_user_by_id(user_id)
+        if not user:
+            raise UserIdNotFound("Não existe um usuário com o ID informado")
         return self.infraction_repo.get_queries_by_user(user_id)
     
     def get_infractions_by_query_service(self, query_id: int) -> Infractions:
-        return self.infraction_repo.get_infractions_by_query(query_id)
+        infractions = self.infraction_repo.get_infractions_by_query(query_id)
+        if not infractions:
+            raise QueryIdNotFound("Não existe uma consulta com o ID informado")
+        return infractions
