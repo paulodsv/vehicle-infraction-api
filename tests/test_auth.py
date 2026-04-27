@@ -4,7 +4,7 @@ def test_register_success(client):
         "password": "123456"
     })
     assert response.status_code == 201
-    assert response.json()["email"] == "test@email.com"
+    assert response.json()["data"]["email"] == "test@email.com"
 
 def test_already_registered_email(client):
     response = client.post("auth/register", json={
