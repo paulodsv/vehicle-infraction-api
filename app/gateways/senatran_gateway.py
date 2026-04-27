@@ -17,7 +17,7 @@ class SenatranGateway():
         self.base_infractions_url = settings.INFOSIMPLES_INFRACTIONS_URL
         self.base_infractions_details_url = settings.INFOSIMPLES_DETAILS_URL
 
-    def get_infraction_by_plate(self, query: SenatranInfractionQuery):
+    def get_infraction_by_plate(self, query: SenatranInfractionQuery) -> SenatranInfractionDTO:
         logger.info("Consultando infrações | placa=%s", query.plate)
         response = httpx.post(self.base_infractions_url, data={"token": self.token, 
                                                       "placa": query.plate, 
@@ -43,7 +43,7 @@ class SenatranGateway():
 
         return SenatranResponseDTO(infractions, total)
     
-    def get_infraction_details(self, query: SenatranInfractionDetailsQuery):
+    def get_infraction_details(self, query: SenatranInfractionDetailsQuery) -> SenatranDetailsDTO:
         logger.info("Consultando detalhes das infrações | placa=%s", query.plate)
         details = httpx.post(self.base_infractions_details_url, data={"token": self.token, 
                                                                       "chave_infracao": query.infraction_key, 
@@ -55,6 +55,4 @@ class SenatranGateway():
         logger.info("Resposta recebida | placa=%s | status=%s", query.plate, details.status_code)
         response = details.json()
         raw = response["data"][0]
-        details_dto = SenatranDetailsDTO(raw)
-        
-        return details_dto
+        return SenatranDetailsDTO(raw)
