@@ -18,3 +18,6 @@ class UserEmailNotFound(Exception):
 
 class UserIdNotFound(Exception):
     pass
+
+class QueryIdNotFound(Exception):
+    pass
