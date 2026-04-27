@@ -4,6 +4,7 @@ from app.repositories.user_repository import UserRepository
 from app.domain.exceptions import AlreadyRegisteredUser, InvalidUserEmail, InvalidUserPassword
 from app.schemas.token import TokenResponse
 from app.models.user import User
+from app.domain.exceptions import UserEmailNotFound, UserIdNotFound
 
 class UserService():
     def __init__(self, user_repo: UserRepository):
@@ -37,7 +38,13 @@ class UserService():
         return self.user_repo.get_all_users()
     
     def get_user_by_email_service(self, user_email: str) -> User:
-        return self.user_repo.get_user_by_email(user_email)
+        user = self.user_repo.get_user_by_email(user_email)
+        if not user:
+            raise UserEmailNotFound("Não existe um usuário com o email informado")
+        return user
     
     def get_user_by_id_service(self, user_id: int) -> User:
-        return self.user_repo.get_user_by_id(user_id)
+        user =  self.user_repo.get_user_by_id(user_id)
+        if not user:
+            raise UserIdNotFound("Não existe um usuário com o ID informado")
+        return user
