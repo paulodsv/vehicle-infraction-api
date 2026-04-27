@@ -3,11 +3,12 @@ from app.services.user_service import UserService
 from app.schemas.user import UserCreate, UserResponse, UserLogin
 from app.schemas.token import TokenResponse
 from app.core.dependencies import get_user_service
+from app.schemas.response import APIResponse, success_response
 
 auth_router = APIRouter(prefix="/auth", tags=["Auth"])
 
 @auth_router.post("/register", status_code=201, 
-                  response_model=UserResponse, 
+                  response_model=APIResponse[UserResponse], 
                   summary="Cadastra um novo usuário", 
                   description="Cria um novo usuário no sistema",
                   operation_id="userRegister",
@@ -15,11 +16,12 @@ auth_router = APIRouter(prefix="/auth", tags=["Auth"])
                       201: {"description": "Usuário cadastrado com sucesso"},
                       409: {"description": "Email já registrado no sistema"}
                   })
-def register(user_data: UserCreate, service: UserService = Depends(get_user_service)) -> UserResponse:
-    return service.register_user_service(user_data)
+def register(user_data: UserCreate, service: UserService = Depends(get_user_service)) -> APIResponse[UserResponse]:
+    user = service.register_user_service(user_data)
+    return success_response(user, "Usuário cadastrado com sucesso")
 
 @auth_router.post("/login", status_code=200, 
-                  response_model=TokenResponse,
+                  response_model=APIResponse[TokenResponse],
                   description="Realiza o Login de um usuário",
                   summary="Login do usuário",
                   operation_id="userLogin",
@@ -27,5 +29,6 @@ def register(user_data: UserCreate, service: UserService = Depends(get_user_serv
                       200: {"description": "Login realizado com sucesso"},
                       401: {"description": "Email ou senha inválidos"}
                   })
-def login(user_data: UserLogin, service: UserService = Depends(get_user_service)) -> TokenResponse:
-    return service.login_service(user_data)
+def login(user_data: UserLogin, service: UserService = Depends(get_user_service)) -> APIResponse[TokenResponse]:
+    user_token = service.login_service(user_data)
+    return success_response(user_token, "Login realizado com sucesso")
