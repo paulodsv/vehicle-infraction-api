@@ -12,3 +12,9 @@ class AlreadyRegisteredVehicle(Exception):
 
 class NotRegisteredVehicle(Exception):
     pass
+
+class UserEmailNotFound(Exception):
+    pass
+
+class UserIdNotFound(Exception):
+    pass
