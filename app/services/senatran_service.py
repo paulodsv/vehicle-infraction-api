@@ -46,15 +46,15 @@ class SenatranService():
         return self.infraction_repo.get_infractions_by_query(saved_query.id)
     
 
-    def consult_fleet_service(self, current_user_id: int) -> list[Infractions]:
+    def consult_fleet_service(self, current_user_id: int) -> int:
         all_active_vehicles = self.vehicles_repo.get_all_vehicles(is_active=True)
 
-        results = []
         for vehicle in all_active_vehicles:
-            query = SenatranInfractionQuery(plate=vehicle.plate, cnpj=vehicle.company_cnpj)
-            infractions = self.consult_infractions_service(query, current_user_id)
-            results.extend(infractions)
-        return results
+            query = SenatranInfractionQuery(plate=vehicle.plate, 
+                                            cnpj=vehicle.company_cnpj)
+            
+            self.consult_infractions_service(query, current_user_id)
+        return len(all_active_vehicles)
     
     
     def fetch_infraction_details_service(self) -> int:
