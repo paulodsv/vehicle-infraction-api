@@ -24,6 +24,13 @@ def consult_infractions(data: SenatranInfractionQuery,
     return success_response(infractions, "Infrações consultadas e gravadas com sucesso")
 
 
+@senatran_router.post("/consult-fleet")
+def consult_fleet_infractions(current_user: User = Depends(get_current_user), 
+                              service: SenatranService = Depends(get_senatran_service)):
+    total = service.consult_fleet_service(current_user.id)
+    return success_response(None, f"{total} veículos consultados com sucesso")
+
+
 @senatran_router.post("/fetch-details", status_code=200, 
                       response_model= APIResponse,
                       summary="Busca detalhes das infrações pendentes",
