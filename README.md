@@ -143,9 +143,9 @@ Os testes utilizam SQLite in-memory com rollback por fixture — nenhuma altera�
 | GET | `/infractions/{plate}` | Infrações persistidas por placa | ✅ |
 | GET | `/infractions/queries/{user_id}` | Consultas realizadas por usuário | ✅ |
 | GET | `/infractions/queries/{query_id}/infractions` | Infrações de uma consulta específica | ✅ |
-| POST | `/senatran/consult` | Consulta infrações via SENATRAN | ✅ |
-| POST | `/senatran/fleet` | Consulta frota completa | ✅ |
-| POST | `/senatran/details` | Detalhes de uma infração | ✅ |
+| POST | `/senatran/infractions` | Consulta infrações via SENATRAN | ✅ |
+| POST | `/senatran/consult-fleet` | Consulta frota completa | ✅ |
+| POST | `/senatran/fetch-details` | Detalhes de uma infração | ✅ |
 
 A documentação interativa completa está disponível em `http://localhost:8000/docs`.
 
