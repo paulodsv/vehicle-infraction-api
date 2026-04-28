@@ -11,24 +11,6 @@ from app.schemas.response import APIResponse, success_response
 
 infractions_router = APIRouter(prefix="/infractions", tags=["Infractions"])
 
-@infractions_router.get("/{plate}", status_code=200,
-                        response_model=APIResponse[list[InfractionResponse]],
-                        summary="Retorna infrações por placa",
-                        description="Consulta e retorna infrações já registradas no sistema, baseado na placa do veículo",
-                        operation_id="getInfractionsByPlate",
-                        responses={
-                            200: {"description": "Infrações retornadas com sucesso"},
-                            404: {"description": "Placa informada não registrada no sistema"}
-                        })
-def get_infractions_by_plate(plate: str, 
-                                   service: InfractionService = Depends(get_infractions_service),
-                                   vehicle_service: VehicleService = Depends(get_vehicle_service), 
-                                   get_current_user: User = Depends(get_current_user)) -> APIResponse[list[InfractionResponse]]:
-    plate = plate.upper() 
-    vehicle_service.get_vehicle_by_plate_service(plate)
-    infractions = service.get_infractions_by_plate_service(plate)
-    return success_response(infractions, "Infrações retornadas com sucesso")
-
 @infractions_router.get("/queries/{user_id}", status_code=200,
                         response_model=APIResponse[list[InfractionQueryResponse]],
                         summary="Retorna queries pelo user_id",
@@ -58,3 +40,22 @@ def get_infractions_by_query_id(query_id: int,
                                 get_current_user: User = Depends(get_current_user)) -> APIResponse[list[InfractionResponse]]:
     infractions = service.get_infractions_by_query_service(query_id)
     return success_response(infractions, "Infrações retornadas com sucesso")
+
+@infractions_router.get("/{plate}", status_code=200,
+                        response_model=APIResponse[list[InfractionResponse]],
+                        summary="Retorna infrações por placa",
+                        description="Consulta e retorna infrações já registradas no sistema, baseado na placa do veículo",
+                        operation_id="getInfractionsByPlate",
+                        responses={
+                            200: {"description": "Infrações retornadas com sucesso"},
+                            404: {"description": "Placa informada não registrada no sistema"}
+                        })
+def get_infractions_by_plate(plate: str, 
+                                   service: InfractionService = Depends(get_infractions_service),
+                                   vehicle_service: VehicleService = Depends(get_vehicle_service), 
+                                   get_current_user: User = Depends(get_current_user)) -> APIResponse[list[InfractionResponse]]:
+    plate = plate.upper() 
+    vehicle_service.get_vehicle_by_plate_service(plate)
+    infractions = service.get_infractions_by_plate_service(plate)
+    return success_response(infractions, "Infrações retornadas com sucesso")
+
