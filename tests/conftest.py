@@ -51,3 +51,13 @@ def auth_headers(client):
 
     token = response.json()["access_token"]
     return {"Authorization": f"Bearer {token}"}
+
+@pytest.fixture()
+def registered_vehicle(client, auth_headers):
+    response = client.post("/vehicles/", json={
+        "plate": "ABC1234",
+        "type": "cavalo",
+        "company_cnpj": "00000123456789"
+    }, headers=auth_headers)
+
+    return response.json()["data"]
