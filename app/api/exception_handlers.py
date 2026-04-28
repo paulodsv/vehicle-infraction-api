@@ -18,7 +18,7 @@ def register_exception_handlers(app):
     
     @app.exception_handler(NotRegisteredVehicle)
     async def handler_not_registered_vehicle(request: Request, exc: NotRegisteredVehicle):
-        return JSONResponse(status_code=400, content={"detail": str(exc)})
+        return JSONResponse(status_code=404, content={"detail": str(exc)})
     
     @app.exception_handler(AlreadyRegisteredVehicle)
     async def handler_already_registered_vehicle(request: Request, exc: AlreadyRegisteredVehicle):
