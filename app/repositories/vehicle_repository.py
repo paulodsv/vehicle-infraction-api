@@ -1,6 +1,8 @@
 from sqlalchemy.orm import Session
-from app.schemas.vehicle import VehicleCreate, VehicleUpdate
+
 from app.models.vehicle import Vehicle
+from app.schemas.vehicle import VehicleCreate, VehicleUpdate
+
 
 class VehicleRepository():
     def __init__(self, db: Session):

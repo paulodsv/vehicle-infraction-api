@@ -1,11 +1,12 @@
-from app.core.config import settings
-import httpx
-from app.schemas.senatran import SenatranInfractionDetailsQuery, SenatranInfractionQuery
-from app.dtos.senatran.infraction_dto import SenatranInfractionDTO, SenatranResponseDTO
-from app.dtos.senatran.details_dto import SenatranDetailsDTO
-from app.gateways.exceptions import ExternalServiceError
-
 import logging
+
+import httpx
+
+from app.core.config import settings
+from app.dtos.senatran.details_dto import SenatranDetailsDTO
+from app.dtos.senatran.infraction_dto import SenatranInfractionDTO, SenatranResponseDTO
+from app.gateways.exceptions import ExternalServiceError
+from app.schemas.senatran import SenatranInfractionDetailsQuery, SenatranInfractionQuery
 
 logger = logging.getLogger(__name__)
 

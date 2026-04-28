@@ -1,10 +1,11 @@
 from fastapi import APIRouter, Depends
-from app.schemas.senatran import SenatranInfractionQuery
-from app.schemas.infraction import InfractionResponse
+
 from app.core.dependencies import get_current_user, get_senatran_service
 from app.models.user import User
-from app.services.senatran_service import SenatranService
+from app.schemas.infraction import InfractionResponse
 from app.schemas.response import APIResponse, success_response
+from app.schemas.senatran import SenatranInfractionQuery
+from app.services.senatran_service import SenatranService
 
 senatran_router = APIRouter(prefix="/senatran", tags=["Senatran"])
 

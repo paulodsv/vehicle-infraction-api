@@ -1,9 +1,10 @@
-from app.repositories.infraction_repository import InfractionRepository
-from app.models.infractions import Infractions
+from app.domain.exceptions import NotRegisteredVehicle, QueryIdNotFound, UserIdNotFound
 from app.models.infraction_queries import InfractionQueries
-from app.domain.exceptions import UserIdNotFound, QueryIdNotFound, NotRegisteredVehicle
-from app.repositories.user_repository import UserRepository 
+from app.models.infractions import Infractions
+from app.repositories.infraction_repository import InfractionRepository
+from app.repositories.user_repository import UserRepository
 from app.repositories.vehicle_repository import VehicleRepository
+
 
 class InfractionService():
     def __init__(self, infraction_repo: InfractionRepository, user_repo: UserRepository, vehicle_repo = VehicleRepository):

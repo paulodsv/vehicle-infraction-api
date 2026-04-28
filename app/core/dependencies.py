@@ -1,18 +1,20 @@
-from app.core.database import SessionLocal
-from jose import jwt, JWTError
 from fastapi import Depends, HTTPException, status
-from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
+from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
+from jose import JWTError, jwt
 from sqlalchemy.orm import Session
-from app.models.user import User
+
 from app.core.config import settings
-from app.repositories.user_repository import UserRepository
-from app.services.user_service import UserService
-from app.repositories.vehicle_repository import VehicleRepository
-from app.services.vehicle_service import VehicleService
+from app.core.database import SessionLocal
+from app.gateways.senatran_gateway import SenatranGateway
+from app.models.user import User
 from app.repositories.infraction_repository import InfractionRepository
+from app.repositories.user_repository import UserRepository
+from app.repositories.vehicle_repository import VehicleRepository
 from app.services.infraction_service import InfractionService
 from app.services.senatran_service import SenatranService
-from app.gateways.senatran_gateway import SenatranGateway
+from app.services.user_service import UserService
+from app.services.vehicle_service import VehicleService
+
 
 def get_db():
     db = SessionLocal()

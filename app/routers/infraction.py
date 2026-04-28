@@ -1,13 +1,11 @@
 from fastapi import APIRouter, Depends
-from app.models.user import User
-from app.core.dependencies import get_current_user
-from app.schemas.infraction import InfractionResponse, InfractionQueryResponse
-from app.core.dependencies import get_infractions_service, get_vehicle_service
-from app.services.infraction_service import InfractionService
-from app.models.user import User
-from app.services.vehicle_service import VehicleService
-from app.schemas.response import APIResponse, success_response
 
+from app.core.dependencies import get_current_user, get_infractions_service, get_vehicle_service
+from app.models.user import User
+from app.schemas.infraction import InfractionQueryResponse, InfractionResponse
+from app.schemas.response import APIResponse, success_response
+from app.services.infraction_service import InfractionService
+from app.services.vehicle_service import VehicleService
 
 infractions_router = APIRouter(prefix="/infractions", tags=["Infractions"])
 

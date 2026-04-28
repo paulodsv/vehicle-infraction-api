@@ -1,10 +1,10 @@
 from fastapi import APIRouter, Depends
+
+from app.core.dependencies import get_current_user, get_user_service
 from app.models.user import User
-from app.core.dependencies import get_current_user
-from app.services.user_service import UserService
-from app.core.dependencies import get_user_service
-from app.schemas.user import UserResponse
 from app.schemas.response import APIResponse, success_response
+from app.schemas.user import UserResponse
+from app.services.user_service import UserService
 
 user_router = APIRouter(prefix="/Users", tags=["Users"])
 

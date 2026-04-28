@@ -1,5 +1,7 @@
-from sqlalchemy import Column, Integer, String, Boolean, Float, ForeignKey
+from sqlalchemy import Boolean, Column, Float, ForeignKey, Integer, String
+
 from app.core.database import Base
+
 
 class Infractions(Base):
     __tablename__ = "infractions"

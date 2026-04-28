@@ -1,7 +1,9 @@
 from sqlalchemy.orm import Session
-from app.schemas.infraction import InfractionQueryCreate, InfractionCreate, InfractionDetailedCreate
+
 from app.models.infraction_queries import InfractionQueries
 from app.models.infractions import Infractions
+from app.schemas.infraction import InfractionCreate, InfractionDetailedCreate, InfractionQueryCreate
+
 
 class InfractionRepository():
     def __init__(self, db: Session):
@@ -78,5 +80,5 @@ class InfractionRepository():
         return infraction
     
     def get_infractions_with_no_details(self) -> Infractions:
-        infractions = self.db.query(Infractions).filter(Infractions.details_fetched == False).all()
+        infractions = self.db.query(Infractions).filter(not Infractions.details_fetched).all()
         return infractions

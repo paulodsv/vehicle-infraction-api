@@ -1,9 +1,10 @@
 from fastapi import APIRouter, Depends
-from app.schemas.vehicle import VehicleCreate, TipoVeiculo, VehicleUpdate, VehicleResponse
-from app.core.dependencies import get_vehicle_service, get_current_user
-from app.services.vehicle_service import VehicleService
+
+from app.core.dependencies import get_current_user, get_vehicle_service
 from app.models.user import User
 from app.schemas.response import APIResponse, success_response
+from app.schemas.vehicle import TipoVeiculo, VehicleCreate, VehicleResponse, VehicleUpdate
+from app.services.vehicle_service import VehicleService
 
 vehicle_router = APIRouter(prefix="/vehicles", tags=["Vehicles"])
 

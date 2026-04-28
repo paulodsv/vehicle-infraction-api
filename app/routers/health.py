@@ -1,7 +1,8 @@
 from fastapi import APIRouter, Depends
-from app.core.dependencies import get_db    
-from sqlalchemy.orm import Session
 from sqlalchemy import text
+from sqlalchemy.orm import Session
+
+from app.core.dependencies import get_db
 
 health_router = APIRouter(prefix="/health", tags=["Health"])
 

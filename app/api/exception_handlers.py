@@ -1,6 +1,17 @@
 from fastapi import Request
 from fastapi.responses import JSONResponse
-from app.domain.exceptions import AlreadyRegisteredUser, InvalidUserEmail, InvalidUserPassword, NotRegisteredVehicle, AlreadyRegisteredVehicle, UserEmailNotFound, UserIdNotFound, QueryIdNotFound
+
+from app.domain.exceptions import (
+    AlreadyRegisteredUser,
+    AlreadyRegisteredVehicle,
+    InvalidUserEmail,
+    InvalidUserPassword,
+    NotRegisteredVehicle,
+    QueryIdNotFound,
+    UserEmailNotFound,
+    UserIdNotFound,
+)
+
 
 def register_exception_handlers(app):
 

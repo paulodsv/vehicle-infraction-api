@@ -1,7 +1,8 @@
-from app.repositories.vehicle_repository import VehicleRepository
-from app.models.vehicle import Vehicle
-from app.schemas.vehicle import VehicleCreate, TipoVeiculo, VehicleUpdate
 from app.domain.exceptions import AlreadyRegisteredVehicle, NotRegisteredVehicle
+from app.models.vehicle import Vehicle
+from app.repositories.vehicle_repository import VehicleRepository
+from app.schemas.vehicle import TipoVeiculo, VehicleCreate, VehicleUpdate
+
 
 class VehicleService():
     def __init__(self, vehicle_repo: VehicleRepository):

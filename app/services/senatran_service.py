@@ -1,12 +1,13 @@
+from app.domain.exceptions import NotRegisteredVehicle
+from app.dtos.senatran.details_dto import SenatranDetailsDTO
+from app.dtos.senatran.infraction_dto import SenatranResponseDTO
 from app.gateways.senatran_gateway import SenatranGateway
-from app.schemas.infraction import InfractionQueryCreate, InfractionCreate, InfractionDetailedCreate
-from app.schemas.senatran import SenatranInfractionQuery, SenatranInfractionDetailsQuery
+from app.models.infractions import Infractions
 from app.repositories.infraction_repository import InfractionRepository
 from app.repositories.vehicle_repository import VehicleRepository
-from app.dtos.senatran.infraction_dto import SenatranResponseDTO
-from app.dtos.senatran.details_dto import SenatranDetailsDTO
-from app.models.infractions import Infractions
-from app.domain.exceptions import NotRegisteredVehicle
+from app.schemas.infraction import InfractionCreate, InfractionDetailedCreate, InfractionQueryCreate
+from app.schemas.senatran import SenatranInfractionDetailsQuery, SenatranInfractionQuery
+
 
 class SenatranService():
     def __init__(self, senatran_gateway: SenatranGateway, infraction_repo: InfractionRepository, vehicles_repo: VehicleRepository):

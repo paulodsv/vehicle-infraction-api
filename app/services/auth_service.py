@@ -1,8 +1,9 @@
-from app.core.security import hash_password, verify_password, create_access_token
-from app.schemas.user import UserCreate, UserLogin
-from app.repositories.user_repository import UserRepository
+from app.core.security import create_access_token, hash_password, verify_password
 from app.domain.exceptions import AlreadyRegisteredUser, InvalidUserEmail, InvalidUserPassword
+from app.repositories.user_repository import UserRepository
 from app.schemas.token import TokenResponse
+from app.schemas.user import UserCreate, UserLogin
+
 
 class UserService():
     def __init__(self, user_repo: UserRepository):

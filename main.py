@@ -1,14 +1,15 @@
 from fastapi import FastAPI
+from fastapi.openapi.docs import get_swagger_ui_html
+from fastapi.staticfiles import StaticFiles
+
+from app.api.exception_handlers import register_exception_handlers
+from app.core.logging_config import setup_logging
 from app.routers.auth import auth_router
-from app.routers.vehicle import vehicle_router
+from app.routers.health import health_router
 from app.routers.infraction import infractions_router
 from app.routers.senatran import senatran_router
 from app.routers.user import user_router
-from app.routers.health import health_router
-from app.api.exception_handlers import register_exception_handlers
-from app.core.logging_config import setup_logging
-from fastapi.staticfiles import StaticFiles
-from fastapi.openapi.docs import get_swagger_ui_html
+from app.routers.vehicle import vehicle_router
 
 setup_logging()
 
