@@ -1,5 +1,7 @@
 # 🚗 Vehicle Infraction API
 
+![Tests](https://github.com/paulodsv/vehicle-infraction-api/actions/workflows/test.yml/badge.svg)
+
 API REST para consulta e persistência de infrações veiculares, integrada à API do SENATRAN via Infosimples. Desenvolvida com foco em boas práticas de arquitetura, autenticação segura e containerização.
 
 ---
